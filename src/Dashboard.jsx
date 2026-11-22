@@ -27,7 +27,7 @@ const EVENTOS = [
     valorContrato: 4860.00,
     parcelas: [
       { n: 1, valor: 2430.00, nf: 11, emitidaEm: "2026-10-30", previsao: "semana de 02/11", pagoEm: "2026-11-03" },
-      { n: 2, valor: 2430.00, nf: 12, emitidaEm: "2026-11-11", previsao: "13/11", previsaoData: "2026-11-13", pagoEm: null },
+      { n: 2, valor: 2430.00, nf: 12, emitidaEm: "2026-11-11", previsao: "13/11", previsaoData: "2026-11-13", pagoEm: "2026-11-18" },
     ],
     custos: [
       { item: "Copos", valor: 170.40 },
@@ -94,7 +94,7 @@ export default function DashboardEventos() {
     <div style={{ minHeight: "100vh", background: "#0d1117", color: "#e2e8f0", fontFamily: "'DM Sans', system-ui, sans-serif", padding: "24px 20px" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
       <div style={{ fontSize: 22, fontWeight: 800, marginBottom: 4 }}>Eventos Hika.fe</div>
-      <div style={{ fontSize: 13, color: "#64748b", marginBottom: 16 }}>Resultado de cada evento, fora do dia a dia das lojas · atualizado até 21/11/2026</div>
+      <div style={{ fontSize: 13, color: "#64748b", marginBottom: 16 }}>Resultado de cada evento, fora do dia a dia das lojas · atualizado até 22/11/2026</div>
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
         <button style={tabBtn(tab === "geral")} onClick={() => setTab("geral")}>Visão geral</button>
         <button style={tabBtn(tab === "evento")} onClick={() => setTab("evento")}>Evento MDP</button>
@@ -235,7 +235,7 @@ export default function DashboardEventos() {
             <div key={e.cupom} style={{ marginBottom: 24 }}>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 16 }}>
                 <div style={cardStyle}><div style={cardLabel}>Contrato</div><div style={cardValue}>{fmtMoeda2(bruto)}</div><div style={cardSub}>{parcelas.length} parcelas · {parcelas.filter(x => x.nf).length} NF emitida{parcelas.filter(x => x.nf).length === 1 ? "" : "s"}</div></div>
-                <div style={cardStyle}><div style={cardLabel}>Recebido</div><div style={{ ...cardValue, color: recebido >= bruto ? COR_ALEM : COR_PENDENTE }}>{fmtMoeda2(recebido)}</div><div style={cardSub}>falta {fmtMoeda2(r2(bruto - recebido))} · {e.formaPagamento}, sem custo financeiro</div></div>
+                <div style={cardStyle}><div style={cardLabel}>Recebido</div><div style={{ ...cardValue, color: recebido >= bruto ? COR_ALEM : COR_PENDENTE }}>{fmtMoeda2(recebido)}</div><div style={cardSub}>{recebido >= bruto ? "contrato quitado" : `falta ${fmtMoeda2(r2(bruto - recebido))}`} · {e.formaPagamento}, sem custo financeiro</div></div>
                 <div style={cardStyle}><div style={cardLabel}>Resultado</div><div style={{ ...cardValue, color: resultado >= 0 ? COR_ALEM : "#f87171" }}>{fmtMoeda2(resultado)}</div><div style={cardSub}>{pct(resultado)} do contrato · {fmtMoeda2(equip)} são equipamentos que ficam com a casa</div></div>
               </div>
               <div style={{ fontSize: 12, color: "#94a3b8", marginBottom: 8 }}>{e.descricao}</div>
